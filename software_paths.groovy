@@ -1,0 +1,11 @@
+FASTQ_DUMP = "fastq-dump"
+FASTQC = "fastqc"
+TRIMOMMATIC = "trimmomatic"
+STAR = "STAR"
+FEATURECOUNTS = "featureCounts"
+BOWTIE2 = "bowtie2"
+BOWTIE = "bowtie"
+MARK_DUPLICATES = "\$PICARDDIR/picard.jar MarkDuplicates"
+SAMTOOLS = "samtools"
+BEDTOOLS = "bedtools"
+

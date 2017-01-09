@@ -1,14 +1,25 @@
-load 'dnaseq_stages.groovy'
-load 'common_stages.groovy'
+//load file with paths to necessary software (meerkati paths)
+load '/group/bioi1/jovanam/scripts/bpipe-pipelines/software_paths.groovy'
+//load bpipe stages required for this pipeline
+load '/group/bioi1/jovanam/scripts/bpipe-pipelines/dnaseq_stages.groovy'
+load '/group/bioi1/jovanam/scripts/bpipe-pipelines/common_stages.groovy'
 
-ADAPTERS_FASTA = "/usr/local/Trimmomatic-0.33/adapters/TruSeq2-SE.fa"
-INDEX = "/mnt/storage/shared/genomes/mm10/bowtie2-index/mm10"
-SAF = "/mnt/CELL1-NGS/ChIPseq_RNAseq_Betty_Kao/ChIPseqHistoneMeth_Analysis/mm10GenesUnique.saf"
-NTHREADS = 10
+//path to adapter file for adapter type used in this experiment
+ADAPTERS = "/usr/local/installed/trimmomatic/0.35/adapters/TruSeq2-SE.fa"
+//trimmomatic parameters
+LEADING = 25
+TRAILING = 25
+MINLEN = 30
+ILLUMINACLIP = "2:30:10"
 
+//path to bowtie2 index
+INDEX = "\$GENOMES/hg19/bowtie2-index/hg19"
+//number of treads per sample for multithreaded tools
+NTHREADS = 4
+
+//single-end chip-seq pipeline, starting with data from SRA
 run {
-    "%.fastq.gz" * [ fastqc + trim] +
-    ~"(.*)_ML150.*_ML150371_15090[89]_HG.*BGXX_NS500295_L00[1-4]_R1.fastq.trim.gz" * [ bowtie2_map + sort_bam + index_bam] + 
-    count_reads
+  "%.sra" * [ sra_to_fastq_SE + fastqc + trim_SE + bowtie2_map_SE ] +
+  "%.bam" * [ sort_bam + index_bam + dedup ] + multiqc
 }
 
