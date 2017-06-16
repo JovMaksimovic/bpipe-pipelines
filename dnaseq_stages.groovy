@@ -6,7 +6,7 @@ bowtie2_map_SE = {
   output.dir = "mapped"
   transform("bam"){
     exec """
-       $BOWTIE2 -x $INDEX -p $NTHREADS --local --no-unal -U $input.gz | samtools view -S -b - > $output.bam
+	       $BOWTIE2 -x $INDEX -p $NTHREADS --local --no-unal -U $input.gz 2> ${output.prefix.prefix}.log | samtools view -S -b - > $output.bam
     ""","bowtie2"
   }
 }
@@ -23,7 +23,7 @@ bowtie2_map_PE = {
 
     transform("bam"){
         exec """
-            $BOWTIE2 -x $INDEX -p $NTHREADS --local --no-unal -1 $input1.gz -2 $input2.gz | samtools view -S -b - > $output.bam
+            $BOWTIE2 -x $INDEX -p $NTHREADS --local --no-unal -1 $input1.gz -2 $input2.gz 2> ${output.prefix.prefix}.log | samtools view -S -b - > $output.bam
         ""","bowtie2"
     }
 }
@@ -35,7 +35,7 @@ bowtie_map_SE = {
     output.dir = "mapped"
     transform("bam"){
         exec """
-            $BOWTIE --sam -p $NTHREADS -q $INDEX $input.gz | samtools view -S -b - > $output.bam
+            $BOWTIE --sam -p $NTHREADS -q $INDEX $input.gz 2> ${output.prefix.prefix}.log | samtools view -S -b - > $output.bam
         ""","bowtie"
     }
 }

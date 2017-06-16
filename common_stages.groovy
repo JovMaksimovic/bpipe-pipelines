@@ -112,10 +112,11 @@ count_mapped_SE = {
     // Count total number of single-end mapped reads in bam file (no multi-map)
     doc "Count total number of single-end mapped reads in bam file (no multi-map)"
     output.dir = "stats"
+
     transform("txt"){
         exec """
                 $SAMTOOLS view -F 0x904 -c $input > $output
-        ""","small"
+        ""","tiny"
     }
 }
 
@@ -123,10 +124,11 @@ count_mapped_PE = {
     // Count total number of mapped paired-end reads in bam file (no multi-map)
     doc "Count total number of mapped paired-end reads in bam file (no multi-map)"
     output.dir = "stats"
+
     transform("txt"){
         exec """
 		$SAMTOOLS view -F 0x4 $input.bam | cut -f 1 | sort | uniq | wc -l > $output
-        ""","small"
+        ""","tiny"
     }
 }
 
@@ -135,10 +137,10 @@ coverage_by_region = {
     doc "Get read coverage for each base across a particular region(s)"
     output.dir = "stats"
 
-    filter("cov"){
+    transform("bed"){
         exec """
                 $BEDTOOLS coverage -d -split -abam $input.bam -b $REGIONS_BED > $output.bed
-        ""","small"
+        ""","regioncov"
     }
 }
 

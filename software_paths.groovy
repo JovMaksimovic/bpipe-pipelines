@@ -5,7 +5,7 @@ STAR = "STAR"
 FEATURECOUNTS = "featureCounts"
 BOWTIE2 = "bowtie2"
 BOWTIE = "bowtie"
-MARK_DUPLICATES = "\$PICARDDIR/picard.jar MarkDuplicates"
+MARK_DUPLICATES = "/usr/local/installed/picard/2.0.1/picard.jar MarkDuplicates"
 SAMTOOLS = "samtools"
 BEDTOOLS = "bedtools"
 
