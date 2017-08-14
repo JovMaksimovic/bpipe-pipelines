@@ -88,7 +88,7 @@ star_map_2pass_SE = {
 	      	$STAR --genomeDir $GEN_DIR --readFilesIn ${files} 
 	      	--outFileNamePrefix ${output.prefix.prefix.prefix}.   
 		--sjdbFileChrStartEnd ${output.dir}/1pass/SJ.out.tab --sjdbOverhang $SJBOHANG
-	      	--readFilesCommand zcat --outSAMtype BAM SortedByCoordinate --runThreadN $NTHREADS
+	      	--readFilesCommand zcat --outSAMtype BAM Unsorted --runThreadN $NTHREADS
       	""","star2pass"
    }
 }
@@ -98,7 +98,7 @@ star_map_2pass_PE = {
   doc "Map paired-end reads using the STAR aligner: 2nd pass"
   output.dir = "mapped"
 
-  transform("(.*)_1.fastq.trim.gz","(.*)_2.fastq.trim.gz") to ("\$1.Aligned.out.bam") {
+  transform("(.*)_R1.fastq.trim.gz","(.*)_R2.fastq.trim.gz") to ("\$1.Aligned.out.bam") {
     exec """
         $STAR --genomeDir $GEN_DIR --readFilesIn $input1.gz $input2.gz
 	--sjdbFileChrStartEnd ${output.dir}/1pass/SJ.out.tab --sjdbOverhang $SJBOHANG
