@@ -20,7 +20,7 @@ NTHREADS = 4
 //paired-end atac-seq pipeline, starting with data from SRA
 run {
   "%.sra" * [ sra_to_fastq_PE + fastqc ] +
-  "%_*.fastq.gz" * [ trim_PE + bowtie2_map_PE ] u+
+  "%_*.fastq.gz" * [ trim_PE + bowtie2_map_PE ] +
   "%.bam" * [ sort_bam + index_bam + dedup ] + multiqc
 }
 
