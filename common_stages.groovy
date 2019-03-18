@@ -1,5 +1,5 @@
 sra_to_fastq_PE = {
-  // Convert SRA files to fastq format, paired-end 
+  // Convert SRA files to fastq format, paired-end
   output.dir = "fastq"
   transform(".sra") to ("_1.fastq.gz","_2.fastq.gz"){
     exec """
@@ -49,7 +49,7 @@ multiqc = {
    doc "Pipeline summary report by MultiQC"
 
    exec """
-	multiqc . --ignore .bpipe
+	multiqc -o $MULTIQCDIR . --ignore .bpipe
    ""","multiqc"
 }
 
@@ -59,8 +59,8 @@ trim_SE = {
     output.dir = "trimmed"
 
     filter("trim"){
-        exec """ 
-            $TRIMOMMATIC SE -threads $NTHREADS $input.gz $output.gz ILLUMINACLIP:$ADAPTERS:$ILLUMINACLIP 
+        exec """
+            $TRIMOMMATIC SE -threads $NTHREADS $input.gz $output.gz ILLUMINACLIP:$ADAPTERS:$ILLUMINACLIP
             TRAILING:$TRAILING LEADING:$LEADING MINLEN:$MINLEN
         ""","trimmomatic"
     }
