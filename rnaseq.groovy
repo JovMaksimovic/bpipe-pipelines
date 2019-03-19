@@ -21,6 +21,8 @@ SJBOHANG = 75 //STAR: length of genomic sequence around annotated junctioin; max
 //number of treads per sample for multithreaded tools
 NTHREADS = 4 // no. threads to use for mapping, then counting
 
+MULTIQCDIR = "."
+
 //paired-end rna-seq pipeline, starting with data from SRA
 run {
     "%.fastq.gz" * [ fastqc ] +

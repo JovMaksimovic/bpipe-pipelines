@@ -17,6 +17,8 @@ INDEX = "\$GENOMES/hg19/bowtie2-index/hg19"
 //number of treads per sample for multithreaded tools
 NTHREADS = 4
 
+MULTIQCDIR = "."
+
 //paired-end atac-seq pipeline, starting with data from SRA
 run {
   "%.sra" * [ sra_to_fastq_PE + fastqc ] +
